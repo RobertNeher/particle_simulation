@@ -16,7 +16,7 @@ class Particles {
 
 // ignore: must_be_immutable
 class Particle extends StatefulWidget {
-  double size = 10;
+  double radius = 5;
   final Size canvasSize;
   final Map<String, dynamic> settings;
   Offset position = Offset.zero;
@@ -32,11 +32,13 @@ class _ParticleState extends State<Particle> {
   @override
   Widget build(BuildContext context) {
     if (widget.settings['particle']['randomSize']) {
-      widget.size =
+      widget.radius =
           Random().nextDouble() *
-          widget.settings['particle']['randomSize'].toDouble();
+          (widget.settings['particle']['randomSize']
+              ? Random().nextInt(widget.settings['particle']['maxSize'])
+              : widget.settings['particle']['maxSize']);
     } else {
-      widget.size = widget.settings['particle']['maxSize'].toDouble();
+      widget.radius = widget.settings['particle']['maxSize'].toDouble();
     }
     widget.position = Offset(
       Random().nextDouble() * widget.canvasSize.width,
@@ -48,34 +50,39 @@ class _ParticleState extends State<Particle> {
 
     return CustomPaint(
       willChange: true,
-      painter: ParticlePainter(),
+      painter: ParticlePainter(
+        radius: widget.radius,
+        position: widget.position,
+        color: widget.color,
+      ),
       child: Container(),
     );
   }
 }
 
 class ParticlePainter extends CustomPainter {
+  final double radius;
   final Color color;
   final Offset position;
-  ParticlePainter({required this.color, required this.position});
+  ParticlePainter({
+    required this.radius,
+    required this.color,
+    required this.position,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    PaintingStyle particleStyle = PaintingStyle(
-      
-    );
-      
-    )
     Paint particlePaint = Paint()
-    ..color = color
-    ..strokeCap = StrokeCap.butt
-    ..style
-    particlePaint.color = color;
+      ..color = color
+      ..strokeCap = StrokeCap.butt
+      ..style = PaintingStyle.fill;
+
+    canvas.drawCircle(position, radius, particlePaint);
   }
 
   @override
-  bool shouldRepaint(particlePainter oldDelegate) => false;
+  bool shouldRepaint(ParticlePainter oldDelegate) => false;
 
   @override
-  bool shouldRebuildSemantics(particlePainter oldDelegate) => false;
+  bool shouldRebuildSemantics(ParticlePainter oldDelegate) => false;
 }
