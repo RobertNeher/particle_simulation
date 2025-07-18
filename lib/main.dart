@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:particle_simulation/src/helper.dart';
 import 'package:particle_simulation/src/particles.dart';
 
 void main() {
@@ -29,7 +30,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Particles particleFrame;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: settings['appName'] ?? settings['title'],
@@ -45,14 +45,11 @@ class MainApp extends StatelessWidget {
             );
           }
           if (snapshot.connectionState == ConnectionState.done) {
-            particleFrame = Particles(
-              canvasSize: MediaQuery.of(context).size,
-              settings: settings,
-            );
-            return Center(
-              child: Stack(
-                alignment: Alignment.center,
-                children: particleFrame.particles,
+            return Scaffold(
+              backgroundColor: colorFromString(settings['backgroundColor']),
+              body: ParticleAnimations(
+                settings: settings,
+                windowSize: MediaQuery.of(context).size,
               ),
             );
           } else {

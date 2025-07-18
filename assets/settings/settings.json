@@ -7,11 +7,16 @@
     "fontSize": 16,
     "backgroundColor": "#958D8DDE",
     "maxParticles": 200,
+    "updatePeriod": 16,
     "particle": {
-      "randomColor": true,
+      "randomColor": false,
       "randomSize": true,
-      "maxSize":  20,
-      "color": "#2C08CD00"
+      "distance": 80,
+      "maxRadius":  20,
+      "maxSpeedX": 3,
+      "maxSpeedY": 1.5,
+      "dotColor": "#2C08CD00",
+      "lineColor":"#997A7A7A"
     }
   }
 }
