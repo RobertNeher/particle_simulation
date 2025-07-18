@@ -1,0 +1,17 @@
+{
+  "version": "0.1.0",
+  "settings": {
+    "title": "Particle simulation",
+    "debugMode": true,
+    "font": "Roboto",
+    "fontSize": 16,
+    "backgroundColor": "#958D8DDE",
+    "maxParticles": 200,
+    "particle": {
+      "randomColor": true,
+      "randomSize": true,
+      "maxSize":  20,
+      "color": "#2C08CD00"
+    }
+  }
+}
